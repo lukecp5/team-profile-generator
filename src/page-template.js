@@ -10,6 +10,10 @@ const generateTeam = team => {
             </ul>
             `;
         };
+
+        const htmlArray = [generateManager(team[0])];
+
+        return htmlArray.join('');
 }
 
 
