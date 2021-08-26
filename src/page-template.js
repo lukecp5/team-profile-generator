@@ -1,3 +1,4 @@
+
 const generateTeam = team => {
       
       const generateManager = manager => {
@@ -11,10 +12,48 @@ const generateTeam = team => {
             `;
         };
 
-        const htmlArray = [generateManager(team[0])];
+      const generateEngineer = engineer => {
+            return `
+            <h2 class="card-title">${engineer.getName()}</h2>
+            <ul class="list-group">
+                  <li class="list-group-item">ID: ${engineer.getId()}</li>
+                  <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
+                  <li class="list-group-item">Office number: ${engineer.getOfficeNumber()}</li>
+            </ul>
+            `;
+      };
 
-        return htmlArray.join('');
-}
+      const htmlSrcArray = [];
+
+      //   const htmlArray = [
+      //         generateManager(team[0]), 
+      //         generateEngineer(team[1])];
+
+        return htmlSrcArray.push(
+              team
+            // Filter out all employees whose role is Manager
+                  .filter((employee) => employee.role === 'Manager')
+            // Generate a new array from all of the employees whose role is Manager
+                  .map((manager) => generateManager(manager))
+                  .join(' ')
+        );
+        return htmlSrcArray.push(
+            team
+          // Filter out all employees whose role is Engineer
+                .filter((employee) => employee.role === 'Engineer')
+          // Generate a new array from all of the employees whose role is Engineer
+                .map((engineer) => generateEngineer(engineer))
+                .join(' ')
+      );
+      return htmlSrcArray.push(
+            team
+          // Filter out all employees whose role is Intern
+                .filter((intern) => employee.role === 'Intern')
+          // Generate a new array from all of the employees whose role is Intern
+                .map((intern) => generateIntern(intern))
+                .join(' ')
+      );
+      }
 
 
 module.exports = team => {

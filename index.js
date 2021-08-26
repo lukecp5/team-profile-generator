@@ -1,4 +1,16 @@
+/*
+Roles: 
+
+Manager: 
+
+*/
+
 const render = require("./src/page-template.js");
+const fs = require("fs");
+const path = require("path");
+
+const OUTPUT_DIR = path.resolve(__dirname, "dist")
+const outputPath = path.join(OUTPUT_DIR, "index.html");
 
 const team = [
       {
@@ -15,4 +27,4 @@ const team = [
       },
 ];
 
-console.log(render);
+console.log(render(team));
