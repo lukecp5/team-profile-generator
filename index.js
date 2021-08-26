@@ -22,6 +22,8 @@ fs.writeFileSync(outputPath, render(team), "utf8");
 console.log(render(team));
 }
 
+renderHTML(outputPath, team);
+
 // + WHEN I start the application
 // + THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
 // + WHEN I enter the team manager’s name, employee ID, email address, and office number
@@ -46,6 +48,22 @@ function init(){
                   message: "What is the name of the manager of your team?",
                   validate: answer => {answer !== ""? true: "Please enter a manager name"}
             },
+            {
+                  type: "input",
+                  name: "managerID",
+                  message: "What is the ID of the manager of your team?",
+                  validate: answer => { answer.match(/^[1-9]\d*$/) ? true : "Please enter a valid ID number(A number greater than 0)"}
+            },{
+                  type: "input",
+                  name: "managerEmail",
+                  message: "What is the email of the manager of your team?",
+                  validate: answer => {answers.match(/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/igm) ? true: "Please enter a valid email address"}
+            },{
+                  type: "input",
+                  name: "managerOfficeNumber",
+                  message: "What is the office phone number of the manager of your team?",
+                  validate: answer => {answers.match(/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/igm) ? true: "Please enter a valid email address"}
+            }
 
 
       ])
