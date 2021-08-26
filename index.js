@@ -12,20 +12,9 @@ const path = require("path");
 const OUTPUT_DIR = path.resolve(__dirname, "dist")
 const outputPath = path.join(OUTPUT_DIR, "index.html");
 
-const team = [
-      {
-            name: "Luke",
-            id: "1",
-            email: "luke@lukepoirrier.com",
-            role: "manager"
-      },
-      {
-            name: "Wade",
-            id: "2",
-            email: "luke@lukepoirrier.com",
-            role: "engineer"
-      },
-];
+new Manager({"Luke"}, 1, "luke@lukepoirrier.com");
+new Engineer({"Luke 2"}, 2, "lp@lukepoirrier.com");
+new Intern({"Luke - Intern"}, 3, "lpintern@lukepoirrier.com");
 
 fs.writeFileSync(outputPath, render(team), "utf8");
 console.log(render(team));
