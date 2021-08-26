@@ -27,4 +27,5 @@ const team = [
       },
 ];
 
+fs.writeFileSync(outputPath, render(team), "utf8");
 console.log(render(team));
