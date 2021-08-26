@@ -32,24 +32,23 @@ const generateTeam = (team) => {
             `;
   };
 
-  const htmlSrcArray = [];
+  const html = [];
 
   // Filter out all employees whose role is Manager
   // Generate a new array from all of the employees whose role is Manager
-  htmlSrcArray.push(
-    team
-      .filter((employee) => employee.role === "Manager")
+  html.push(team
+      .filter((employee) => employee.getRole() === "Manager")
       .map((manager) => generateManager(manager))
       .join("")
   );
 
-  htmlSrcArray.push(
+  html.push(
     team
       .filter((employee) => employee.role === "Engineer")
       .map((engineer) => generateEngineer(engineer))
       .join("")
   );
-  htmlSrcArray.push(
+  html.push(
     team
       // Filter out all employees whose role is Intern
       .filter((intern) => employee.role === "Intern")
@@ -58,7 +57,7 @@ const generateTeam = (team) => {
       .join("")
   );
 
-  return htmlSrcArray.join("");
+  return html.join("");
 };
 
 module.exports = (team) => {

@@ -5,21 +5,16 @@ const Manager = require("./lib/Manager");
 
 const inquirer = require("Inquirer");
 
-const render = require("./src/page-template.js");
+const render = require("./src/page-template");
 const fs = require("fs");
 const path = require("path");
 
 const OUTPUT_DIR = path.resolve(__dirname, "dist");
 const outputPath = path.join(OUTPUT_DIR, "index.html");
 
-new Manager("Luke", 1, "luke@lukepoirrier.com", "32952345");
-new Engineer("Luke 2", 2, "lp@lukepoirrier.com", "3295");
-new Intern("Luke - Intern", 3, "lpintern@lukepoirrier.com", "329523");
-
-function renderHTML(outputPath, team) {
-  fs.writeFileSync(outputPath, render(team), "utf8");
-  console.log(render(team));
-}
+// new Manager("Luke", 1, "luke@lukepoirrier.com", "32952345");
+// new Engineer("Luke 2", 2, "lp@lukepoirrier.com", "3295");
+// new Intern("Luke - Intern", 3, "lpintern@lukepoirrier.com", "329523");
 
 // Initialize empty array to hold the team members of the current organization
 const team = [];
@@ -45,7 +40,8 @@ function init() {
           name: "managerName",
           message: "What is the name of the manager of your team?",
           validate: (answer) => {
-            answer !== "" ? true : "Please enter a manager name";
+            return true;
+            //   answer !== "" ? true : "Please enter a manager name";
           },
         },
         {
@@ -53,21 +49,19 @@ function init() {
           name: "managerId",
           message: "What is the ID of the manager of your team?",
           validate: (answer) => {
-            answer.match(/^[1-9]\d*$/)
-              ? true
-              : "Please enter a valid ID number(A number greater than 0)";
+            if (answer.match(/^[1-9]\d*$/)) {
+              return true;
+            } else {
+              return `Please enter a valid ID number(A number greater than 0)`;
+            }
           },
         },
         {
           type: "input",
           name: "managerEmail",
           message: "What is the email of the manager of your team?",
-          validate: (answer) => {
-            answers.match(/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim)
-              ? true
-              : "Please enter a valid email address";
+          validate: (answer) => answer ? true : "Please enter a valid email address"
           },
-        },
         {
           type: "input",
           name: "managerOfficeNumber",
@@ -90,11 +84,12 @@ function init() {
         team.push(manager);
         getTeamMembers();
       });
-
-    //test
   } // Close the createManager() function
 
-  function getTeamMembers() {
+  createManager();
+
+  // - WeMenu that displays the options for the employee role. If no input is provided, the default action is to render the souce code and output it to the ./dist/ directory.
+  const getTeamMembers = () => {
     switch (userChoice.memberChoice) {
       case "Engineer":
         createEngineer();
@@ -104,11 +99,10 @@ function init() {
         break;
       default:
         // default
-        createTeam();
+        renderHTML(team);
         break;
     }
-  } // </createTeam()>
-
+  }; // </createTeam()>
 
   // - createEngineer() - Prompts the user for information about the engineer, then instantiates a new Engineer and adds it to the team array when called.
   function createEngineer() {
@@ -117,7 +111,8 @@ function init() {
         {
           type: "input",
           name: "name",
-          message: "What is the name of the engineer you would like to add to the team?",
+          message:
+            "What is the name of the engineer you would like to add to the team?",
           validate: (answer) => {
             answer !== "" ? true : "Please enter a name for the engineer";
           },
@@ -143,11 +138,14 @@ function init() {
           },
         },
         {
-            type: "input",
-            name: "github",
-            message: "What is the GitHub username of the Engineer?",
-            validate: answer => answer !== "" ? true : "Please enter the Engineer's GitHub username",
-          },
+          type: "input",
+          name: "github",
+          message: "What is the GitHub username of the Engineer?",
+          validate: (answer) =>
+            answer !== ""
+              ? true
+              : "Please enter the Engineer's GitHub username",
+        },
       ])
       .then((answers) => {
         const engineer = new Engineer(
@@ -156,9 +154,17 @@ function init() {
           answers.email,
           answers.github
         );
+
         team.push(manager);
         getTeamMembers();
       });
+  }
+  function renderHTML(outputPath, team) {
+    // Create the output directory if the output path doesn't exist
+    if (!fs.existsSync(OUTPUT_DIR)) {
+      fs.mkdirSync(OUTPUT_DIR);
+    }
+    fs.writeFileSync(outputPath, render(team), "utf8");
   }
 } // Close the init() function
 init();
