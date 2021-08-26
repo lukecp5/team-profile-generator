@@ -109,6 +109,8 @@ function init() {
     }
   } // </createTeam()>
 
+
+  // - createEngineer() - Prompts the user for information about the engineer, then instantiates a new Engineer and adds it to the team array when called.
   function createEngineer() {
     inquirer
       .prompt([
