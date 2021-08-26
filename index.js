@@ -21,8 +21,8 @@ function renderHTML(outputPath, team) {
   console.log(render(team));
 }
 
-renderHTML(outputPath, team);
-
+// Initialize empty array to hold the team members of the current organization
+const team = [];
 // + WHEN I start the application
 // + THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
 // + WHEN I enter the team manager’s name, employee ID, email address, and office number
@@ -50,7 +50,7 @@ function init() {
         },
         {
           type: "input",
-          name: "managerID",
+          name: "managerId",
           message: "What is the ID of the manager of your team?",
           validate: (answer) => {
             answer.match(/^[1-9]\d*$/)
@@ -90,19 +90,73 @@ function init() {
         team.push(manager);
         getTeamMembers();
       });
+
+    //test
   } // Close the createManager() function
+
   function getTeamMembers() {
-  switch (userChoice.memberChoice) {
-    case "Engineer":
-      addEngineer();
-      break;
-    case "Intern":
-      addIntern();
-      break;
-    default:
-      // default
-      createTeam();
-      break;
+    switch (userChoice.memberChoice) {
+      case "Engineer":
+        createEngineer();
+        break;
+      case "Intern":
+        createIntern();
+        break;
+      default:
+        // default
+        createTeam();
+        break;
+    }
+  } // </createTeam()>
+
+  function createEngineer() {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "name",
+          message: "What is the name of the engineer you would like to add to the team?",
+          validate: (answer) => {
+            answer !== "" ? true : "Please enter a name for the engineer";
+          },
+        },
+        {
+          type: "input",
+          name: "id",
+          message: "What is the ID of the engineer?",
+          validate: (answer) => {
+            answer.match(/^[1-9]\d*$/)
+              ? true
+              : "Please enter a valid ID number(A number greater than 0)";
+          },
+        },
+        {
+          type: "input",
+          name: "email",
+          message: "What is the email of the engineer?",
+          validate: (answer) => {
+            answers.match(/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim)
+              ? true
+              : "Please enter a valid email address";
+          },
+        },
+        {
+            type: "input",
+            name: "github",
+            message: "What is the GitHub username of the Engineer?",
+            validate: answer => answer !== "" ? true : "Please enter the Engineer's GitHub username",
+          },
+      ])
+      .then((answers) => {
+        const engineer = new Engineer(
+          answers.Name,
+          answers.id,
+          answers.Email,
+          answers.OfficeNumber
+        );
+        team.push(manager);
+        getTeamMembers();
+      });
   }
-} // </createTeam()>
-}// Close the init() function
+} // Close the init() function
+init();
