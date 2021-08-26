@@ -23,6 +23,17 @@ const generateTeam = team => {
             `;
       };
 
+      const generateIntern = intern => {
+            return `
+            <h2 class="card-title">${intern.getName()}</h2>
+            <ul class="list-group">
+                  <li class="list-group-item">ID: ${intern.getId()}</li>
+                  <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
+                  <li class="list-group-item">Office number: ${intern.getOfficeNumber()}</li>
+            </ul>
+            `;
+      };
+
       const htmlSrcArray = [];
 
       //   const htmlArray = [
