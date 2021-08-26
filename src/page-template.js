@@ -1,8 +1,6 @@
-
-const generateTeam = team => {
-      
-      const generateManager = manager => {
-            return `
+const generateTeam = (team) => {
+  const generateManager = (manager) => {
+    return `
             <h2 class="card-title">${manager.getName()}</h2>
             <ul class="list-group">
                     <li class="list-group-item">ID: ${manager.getId()}</li>
@@ -10,10 +8,10 @@ const generateTeam = team => {
                     <li class="list-group-item">Office number: ${manager.getOfficeNumber()}</li>
             </ul>
             `;
-        };
+  };
 
-      const generateEngineer = engineer => {
-            return `
+  const generateEngineer = (engineer) => {
+    return `
             <h2 class="card-title">${engineer.getName()}</h2>
             <ul class="list-group">
                   <li class="list-group-item">ID: ${engineer.getId()}</li>
@@ -21,10 +19,10 @@ const generateTeam = team => {
                   <li class="list-group-item">GitHub: ${engineer.getGithub()}</li>
             </ul>
             `;
-      };
+  };
 
-      const generateIntern = intern => {
-            return `
+  const generateIntern = (intern) => {
+    return `
             <h2 class="card-title">${intern.getName()}</h2>
             <ul class="list-group">
                   <li class="list-group-item">ID: ${intern.getId()}</li>
@@ -32,45 +30,39 @@ const generateTeam = team => {
                   <li class="list-group-item">School: ${intern.getSchool()}</li>
             </ul>
             `;
-      };
+  };
 
-      const htmlSrcArray = [];
+  const htmlSrcArray = [];
 
-      //   const htmlArray = [
-      //         generateManager(team[0]), 
-      //         generateEngineer(team[1])];
+  // Filter out all employees whose role is Manager
+  // Generate a new array from all of the employees whose role is Manager
+  htmlSrcArray.push(
+    team
+      .filter((employee) => employee.role === "Manager")
+      .map((manager) => generateManager(manager))
+      .join("")
+  );
 
-        return htmlSrcArray.push(
-              team
-            // Filter out all employees whose role is Manager
-                  .filter((employee) => employee.role === 'Manager')
-            // Generate a new array from all of the employees whose role is Manager
-                  .map((manager) => generateManager(manager))
-                  .join(' ')
-        );
-        return htmlSrcArray.push(
-            team
-          // Filter out all employees whose role is Engineer
-                .filter((employee) => employee.role === 'Engineer')
-          // Generate a new array from all of the employees whose role is Engineer
-                .map((engineer) => generateEngineer(engineer))
-                .join(' ')
-      );
-      return htmlSrcArray.push(
-            team
-          // Filter out all employees whose role is Intern
-                .filter((intern) => employee.role === 'Intern')
-          // Generate a new array from all of the employees whose role is Intern
-                .map((intern) => generateIntern(intern))
-                .join(' ')
-      );
-      }
+  htmlSrcArray.push(
+    team
+      .filter((employee) => employee.role === "Engineer")
+      .map((engineer) => generateEngineer(engineer))
+      .join("")
+  );
+  htmlSrcArray.push(
+    team
+      // Filter out all employees whose role is Intern
+      .filter((intern) => employee.role === "Intern")
+      // Generate a new array from all of the employees whose role is Intern
+      .map((intern) => generateIntern(intern))
+      .join("")
+  );
 
+  return htmlSrcArray.join("");
+};
 
-module.exports = team => {
-
-
-      return `
+module.exports = (team) => {
+  return `
       <!DOCTYPE html>
   <html lang="en">
   
@@ -103,4 +95,4 @@ module.exports = team => {
   </body>
   </html>
       `;
-}
+};

@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/lukecp5/team-profile-generator/issues"
   },
-  "homepage": "https://github.com/lukecp5/team-profile-generator#readme"
+  "homepage": "https://github.com/lukecp5/team-profile-generator#readme",
+  "dependencies": {
+    "inquirer": "^8.1.2"
+  }
 }
