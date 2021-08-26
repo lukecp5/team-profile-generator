@@ -88,7 +88,7 @@ function init() {
 
   createManager();
 
-  // - WeMenu that displays the options for the employee role. If no input is provided, the default action is to render the souce code and output it to the ./dist/ directory.
+  // - Menu that displays the options for the employee role. If no input is provided, the default action is to render the souce code and output it to the ./dist/ directory.
   const getTeamMembers = () => {
     switch (userChoice.memberChoice) {
       case "Engineer":
