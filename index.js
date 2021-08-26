@@ -151,10 +151,10 @@ function init() {
       ])
       .then((answers) => {
         const engineer = new Engineer(
-          answers.Name,
+          answers.name,
           answers.id,
-          answers.Email,
-          answers.OfficeNumber
+          answers.email,
+          answers.github
         );
         team.push(manager);
         getTeamMembers();
