@@ -89,7 +89,7 @@ function init() {
 
   createManager();
 
-  // - Menu that displays the options for the employee role. If no input is provided, the default action is to render the souce code and output it to the ./dist/ directory.
+  // ! Menu that displays the options for the employee role. If no input is provided, the default action is to render the souce code and output it to the ./dist/ directory.
   function chooseNewMember(){
   inquirer.prompt({
     type: "list",
@@ -118,7 +118,7 @@ function init() {
     }
   }))}; // </createTeam()>
 
-  // - createEngineer() - Prompts the user for information about the engineer, then instantiates a new Engineer and adds it to the team array when called.
+  // ! createEngineer() - Prompts the user for information about the engineer, then instantiates a new Engineer and adds it to the team array when called.
   function createEngineer() {
     inquirer
       .prompt([
@@ -169,10 +169,67 @@ function init() {
           answers.github
         );
 
-        team.push(manager);
-        getTeamMembers();
+        team.push(engineer);
+        chooseNewMember();
       });
   }
+
+  // ! createIntern() {} 
+  function createIntern() {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "name",
+          message:
+            "What is the name of the intern you would like to add to the team?",
+          validate: (answer) => {
+            answer !== "" ? true : "Please enter a name for the engineer";
+          },
+        },
+        {
+          type: "input",
+          name: "id",
+          message: "What is the ID of the intern?",
+          validate: (answer) => {
+            answer.match(/^[1-9]\d*$/)
+              ? true
+              : "Please enter a valid ID number(A number greater than 0)";
+          },
+        },
+        {
+          type: "input",
+          name: "email",
+          message: "What is the email of the intern?",
+          validate: (answer) => {
+            answers.match(/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim)
+              ? true
+              : "Please enter a valid email address";
+          },
+        },
+        {
+          type: "input",
+          name: "github",
+          message: "What school does/did the intern attend?",
+          validate: (answer) =>
+            answer !== ""
+              ? true
+              : "Please enter the intern's alma matter",
+        },
+      ])
+      .then((answers) => {
+        const intern = new Intern(
+          answers.name,
+          answers.id,
+          answers.email,
+          answers.github
+        );
+
+        team.push(intern);
+        chooseNewMember();
+      });
+  }
+
   function renderHTML(outputPath, team) {
     // Create the output directory if the output path doesn't exist
     if (!fs.existsSync(OUTPUT_DIR)) {
