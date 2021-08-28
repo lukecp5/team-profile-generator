@@ -66,12 +66,12 @@ function init() {
           type: "input",
           name: "managerOfficeNumber",
           message:
-            "What is the office phone number of the manager of your team?",
-          validate: (answer) => {
-            answers.match(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/)
-              ? true
-              : "Please enter a phone number";
-          },
+            "What is the office phone number of the manager of your team?"
+          // validate: (answer) => {
+          //   answer.match(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/)
+          //     ? true
+          //     : "Please enter a phone number";
+          // },
         },
       ])
       .then((answers) => {
@@ -82,27 +82,41 @@ function init() {
           answers.managerOfficeNumber
         );
         team.push(manager);
-        getTeamMembers();
+        console.log(team);
+        chooseNewMember();
       });
   } // Close the createManager() function
 
   createManager();
 
   // - Menu that displays the options for the employee role. If no input is provided, the default action is to render the souce code and output it to the ./dist/ directory.
-  const getTeamMembers = () => {
-    switch (userChoice.memberChoice) {
+  function chooseNewMember(){
+  inquirer.prompt({
+    type: "list",
+    name: "typeOfTeamMember",
+    choices: [
+      "Engineer",
+      "Intern",
+      "No more team members"
+    ]
+  })
+  .then((memberType => {
+    switch (memberType.typeOfTeamMember) {
       case "Engineer":
         createEngineer();
         break;
       case "Intern":
         createIntern();
         break;
+      case "No more team members":
+        renderHTML(team);
+        break;
       default:
         // default
         renderHTML(team);
         break;
     }
-  }; // </createTeam()>
+  }))}; // </createTeam()>
 
   // - createEngineer() - Prompts the user for information about the engineer, then instantiates a new Engineer and adds it to the team array when called.
   function createEngineer() {
