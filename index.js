@@ -109,11 +109,12 @@ function init() {
         createIntern();
         break;
       case "No more team members":
-        renderHTML(team);
+        console.log(team)
+        renderHTML(outputPath, team);
         break;
       default:
         // default
-        renderHTML(team);
+        renderHTML(outputPath, team);
         break;
     }
   }))}; // </createTeam()>
@@ -126,39 +127,39 @@ function init() {
           type: "input",
           name: "name",
           message:
-            "What is the name of the engineer you would like to add to the team?",
-          validate: (answer) => {
-            answer !== "" ? true : "Please enter a name for the engineer";
-          },
+            "What is the name of the engineer you would like to add to the team?"
+          // validate: (answer) => {
+          //   answer !== "" ? true : "Please enter a name for the engineer";
+          // },
         },
         {
           type: "input",
           name: "id",
-          message: "What is the ID of the engineer?",
-          validate: (answer) => {
-            answer.match(/^[1-9]\d*$/)
-              ? true
-              : "Please enter a valid ID number(A number greater than 0)";
-          },
+          message: "What is the ID of the engineer?"
+          // validate: (answer) => {
+          //   answer.match(/^[1-9]\d*$/)
+          //     ? true
+          //     : "Please enter a valid ID number(A number greater than 0)";
+          // },
         },
         {
           type: "input",
           name: "email",
           message: "What is the email of the engineer?",
-          validate: (answer) => {
-            answers.match(/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim)
-              ? true
-              : "Please enter a valid email address";
-          },
+          // validate: (answer) => {
+          //   answers.match(/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim)
+          //     ? true
+          //     : "Please enter a valid email address";
+          // },
         },
         {
           type: "input",
           name: "github",
           message: "What is the GitHub username of the Engineer?",
-          validate: (answer) =>
-            answer !== ""
-              ? true
-              : "Please enter the Engineer's GitHub username",
+        //   validate: (answer) =>
+        //     answer !== ""
+        //       ? true
+        //       : "Please enter the Engineer's GitHub username",
         },
       ])
       .then((answers) => {
@@ -170,6 +171,7 @@ function init() {
         );
 
         team.push(engineer);
+        console.log(team);
         chooseNewMember();
       });
   }
@@ -183,38 +185,38 @@ function init() {
           name: "name",
           message:
             "What is the name of the intern you would like to add to the team?",
-          validate: (answer) => {
-            answer !== "" ? true : "Please enter a name for the engineer";
-          },
+          // validate: (answer) => {
+          //   answer !== "" ? true : "Please enter a name for the intern";
+          // },
         },
         {
           type: "input",
           name: "id",
           message: "What is the ID of the intern?",
-          validate: (answer) => {
-            answer.match(/^[1-9]\d*$/)
-              ? true
-              : "Please enter a valid ID number(A number greater than 0)";
-          },
+          // validate: (answer) => {
+          //   answer.match(/^[1-9]\d*$/)
+          //     ? true
+          //     : "Please enter a valid ID number(A number greater than 0)";
+          // },
         },
         {
           type: "input",
           name: "email",
           message: "What is the email of the intern?",
-          validate: (answer) => {
-            answers.match(/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim)
-              ? true
-              : "Please enter a valid email address";
-          },
+          // validate: (answer) => {
+          //   answers.match(/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim)
+          //     ? true
+          //     : "Please enter a valid email address";
+          // },
         },
         {
           type: "input",
-          name: "github",
+          name: "school",
           message: "What school does/did the intern attend?",
-          validate: (answer) =>
-            answer !== ""
-              ? true
-              : "Please enter the intern's alma matter",
+        //   validate: (answer) =>
+        //     answer !== ""
+        //       ? true
+        //       : "Please enter the intern's alma matter",
         },
       ])
       .then((answers) => {
@@ -222,10 +224,11 @@ function init() {
           answers.name,
           answers.id,
           answers.email,
-          answers.github
+          answers.school
         );
 
         team.push(intern);
+        console.log(team);
         chooseNewMember();
       });
   }
@@ -235,6 +238,7 @@ function init() {
     if (!fs.existsSync(OUTPUT_DIR)) {
       fs.mkdirSync(OUTPUT_DIR);
     }
+    console.log(team);
     fs.writeFileSync(outputPath, render(team), "utf8");
   }
 } // Close the init() function
