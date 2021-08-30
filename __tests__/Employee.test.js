@@ -4,7 +4,17 @@ const Employee = require('../lib/Employee');
 
 describe('Employee', () => {
       test('should create employee instance', () => {
-            const e= new Employee();
-            expect(typeof e).toBe('object');
-      });
-})
+            const employee= new Employee();
+            expect(typeof employee).toBe('object');
+      }),
+      test('should create employee instance with the name property supplied at instantiation', () => {
+            const employeeName = "name test";
+            const employee = new Employee(employeeName);
+            expect(employee.name).toBe('name test');
+      }),
+      test('should create employee instance with the id property supplied at instantiation', () => {
+            const employeeId = "1234";
+            let employee = new Employee("Name", employeeId);
+            expect(employee.id).toBe(employeeId);
+      })
+      })
