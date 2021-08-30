@@ -10,5 +10,10 @@ describe('Intern', () => {
             const school = "Georgia Institute of Technology";
             const intern = new Intern("TestName", 1234, "Test@Email.com", school);
             expect(intern.school).toBe(school);
+      }),
+      test('when called, getSchool() should return the school property supplied at instantiation', () => {
+            const school = "Georgia Institute of Technology";
+            const intern = new Intern("TestName", 1234, "Test@test.com", school);
+            expect(intern.getSchool()).toBe(school);
       })
 })
