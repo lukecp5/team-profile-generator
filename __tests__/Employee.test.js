@@ -15,10 +15,20 @@ describe('Employee', () => {
       test('when called, getName() returns the name of the employee', () => {
             const employee = new Employee('name test');
             expect(employee.getName()).toBe('name test');
-      })
+      }),
       test('should create employee instance with the id property supplied at instantiation', () => {
             const employeeId = "1234";
             let employee = new Employee("Name", employeeId);
             expect(employee.id).toBe(employeeId);
+      }),
+      test('when called, getId() returns the id of the employee', () => {
+            const employeeId = "1234";
+            let employee = new Employee("Name", employeeId);
+            expect(employee.getId()).toBe(employeeId);
+      }),
+      test('should create employee instance with the email property supplied at instantiation', () => {
+            const employeeEmail = "test@test.com";
+            let employee = new Employee("Name", 1234, employeeEmail);
+            expect(employee.email).toBe(employeeEmail);
       })
       })
