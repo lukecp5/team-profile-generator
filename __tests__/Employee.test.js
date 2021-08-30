@@ -7,9 +7,4 @@ describe('Employee', () => {
             const e= new Employee();
             expect(typeof e).toBe('object');
       });
-
-      test()
 })
-
-
-// test("Can we instantiate an employee object", function(){})
