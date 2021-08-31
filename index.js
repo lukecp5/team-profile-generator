@@ -150,8 +150,8 @@ function init() {
           answers.managerEmail,
           answers.managerOfficeNumber
         );
+        console.log(`${answers.managerName} has been added as a manager`)
         team.push(manager);
-        console.log(team);
         chooseNewMember();
       });
   } // Close the createManager() function
@@ -178,7 +178,6 @@ function init() {
         createIntern();
         break;
       case "No more team members":
-        console.log(team)
         renderHTML(htmlPATH, team);
         break;
       default:
@@ -229,7 +228,7 @@ function init() {
         );
 
         team.push(engineer);
-        console.log(team);
+        console.log(`Added ${answers.name} as an engineer on your team`);
         chooseNewMember();
       });
   }
@@ -275,7 +274,7 @@ function init() {
         );
 
         team.push(intern);
-        console.log(team);
+        console.log(`Added ${answers.name} as an intern on your team`);
         chooseNewMember();
       });
   }
@@ -284,7 +283,7 @@ function init() {
     if (!fs.existsSync(OUTPUT_DIR)) {
       fs.mkdirSync(OUTPUT_DIR);
     }
-    console.log(team);
+    console.log(`We have just added ${team.length} members to your team, the website is now available in the ${OUTPUT_DIR} directory`);
     fs.writeFileSync(htmlPATH, render(team), "utf8");
     fs.writeFileSync(cssPATH, cssFile(), "utf8");
   }
