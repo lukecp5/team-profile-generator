@@ -12,6 +12,8 @@ describe('Manager', () => {
             expect(manager.officeNumber).toBe(officeNumber);
       }),
       test('getOfficeNumber() should return the office number of Manager object it is called on', () => {
-
+            const officeNumber = '1234567890';
+            const manager = new Manager("Manager Name", 1234, "Manager@email.com", officeNumber);
+            expect(manager.getOfficeNumber()).toBe(officeNumber);
       })
 })
