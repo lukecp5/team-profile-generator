@@ -31,12 +31,12 @@ describe('Employee', () => {
             expect(employee.getId()).toBe(employeeId);
       }),
       test('should create employee instance with the email property supplied at instantiation', () => {
-            const employeeEmail = "test@test.com";
+            const employeeEmail = "employee@email.com.com";
             let employee = new Employee("Name", 1234, employeeEmail);
             expect(employee.email).toBe(employeeEmail);
       }),
       test('when called, getEmail() returns the email of the employee', () => {
-            const employeeEmail = "test@test.com";
+            const employeeEmail = "employee@email.com";
             let employee = new Employee("Name", 1234, employeeEmail);
             expect(employee.getEmail()).toBe(employeeEmail);
       })
