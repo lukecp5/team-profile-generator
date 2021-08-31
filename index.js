@@ -150,7 +150,6 @@ function init() {
           answers.managerEmail,
           answers.managerOfficeNumber
         );
-        console.clear();
         console.log(`${answers.managerName} has been added as a manager`);
         team.push(manager);
         chooseNewMember();
@@ -229,7 +228,6 @@ function init() {
         );
 
         team.push(engineer);
-        console.clear();
         console.log(`Added ${answers.name} as an engineer on your team`);
         chooseNewMember();
       });
@@ -276,7 +274,6 @@ function init() {
         );
 
         team.push(intern);
-        console.clear();
         console.log(`Added ${answers.name} as an intern on your team`);
         chooseNewMember();
       });
